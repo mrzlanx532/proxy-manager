@@ -6,6 +6,9 @@ services:
     build:
       context: ./
       dockerfile: ./docker/nginx/dev.Dockerfile
+      args:
+        LOCAL_LINUX_USER: ${LOCAL_LINUX_USER:-0}
+        LOCAL_LINUX_USER_UID: ${LOCAL_LINUX_USER_UID:-0}
     container_name: nginx
     ports:
       - "80:80"
@@ -39,6 +42,9 @@ services:
     build:
       context: .
       dockerfile: ./docker/php/dev.Dockerfile
+      args:
+        LOCAL_LINUX_USER: ${LOCAL_LINUX_USER:-0}
+        LOCAL_LINUX_USER_UID: ${LOCAL_LINUX_USER_UID:-0}
     container_name: php
     volumes:
       - .:/var/www/html
@@ -48,7 +54,3 @@ services:
       - proxy-manager
     depends_on:
       - mysql
-
-volumes:
-  storage:
-  cache:
